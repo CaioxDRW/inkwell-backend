@@ -1,12 +1,12 @@
 <?php
-$host = "crossover.proxy.rlwy.net";
-$port = "19792";
-$db_name = "railway";
-$username = "root";
-$password = "gNfYNCuyTCZdGnWnUDTHUOXAVwTTquiO";
+$host = 'mysql.railway.internal'; 
+$db   = 'railway';
+$user = 'root';
+$pass = getenv('MYSQLPASSWORD');
+$port = '3306';                  
 
 try {
-    $conn = new PDO("mysql:host=" . $host . ";port=" . $port . ";dbname=" . $db_name . ";charset=utf8", $username, $password);
+    $conn = new PDO("mysql:host=" . $host . ";port=" . $port . ";dbname=" . $db . ";charset=utf8", $user, $pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $exception) {
     http_response_code(500);
