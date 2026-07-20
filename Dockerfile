@@ -1,12 +1,13 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
-# Instala extensão PDO e MySQL para o PHP conseguir falar com o banco
+# Instala extensão PDO e MySQL
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Copia todos os seus arquivos PHP para a pasta do servidor Apache
-COPY . /var/www/html/
+# Define o diretório de trabalho
+WORKDIR /var/www/html
 
-# Ativa o módulo de reescrita do Apache se precisar no futuro
-RUN a2enmod rewrite
+# Copia os arquivos do projeto
+COPY . .
 
-EXPOSE 80
+# Roda o servidor embutido do PHP ouvindo na porta informada pelo Railway
+CMD php -S 0.0.0.0:${PORT:-8080} -t /var/www/html
